@@ -11,6 +11,8 @@ import { PaletteSwatch } from "~/components/PaletteSwatch/PaletteSwatch";
 import { setFlag, useFlagValueSelector } from "~/state/flagSlice";
 import sampleSize from "lodash/sampleSize";
 import { Divider } from "@ff6wc/ui/Divider/Divider";
+import { FlagSwitch } from "~/components/FlagSwitch/FlagSwitch";
+import { SettingSwitch } from "~/components/SettingSwitch/SettingSwitch";
 
 export type LoadPalettesResponse = {
   id: string;
@@ -64,10 +66,13 @@ export const SpritePalettes = ({
     [original, others]
   );
 
-  const palettesById = paletteOptions.reduce((acc, spriteDef) => {
-    acc[spriteDef.value] = spriteDef;
-    return acc;
-  }, {} as Record<string, PaletteSelectOption>);
+  const palettesById = paletteOptions.reduce(
+    (acc, spriteDef) => {
+      acc[spriteDef.value] = spriteDef;
+      return acc;
+    },
+    {} as Record<string, PaletteSelectOption>
+  );
 
   const paletteIter = Array.from(new Array(7));
 
@@ -92,24 +97,12 @@ export const SpritePalettes = ({
         value: defaultPaletteString,
       })
     );
-  }
+  };
   return (
     <Card title={"Sprite Palettes"}>
       <CardColumn>
         <span className="inline-flex gap-2 flex-wrap">
-          <Button
-            disabled={!paletteDefs.length}
-            onClick={randomize}
-            variant="primary"
-          >
-            Randomize Palettes
-          </Button>
-          <Button
-            onClick={restoreDefault}
-            variant="primary"
-          >
-            Default
-          </Button>
+          <SettingSwitch flag="-randp" label="Use randomized palettes" />
         </span>
         {paletteIter.map((_val, idx) => {
           const paletteColors = palettesById[paletteValues[idx]]?.color ?? [];

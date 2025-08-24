@@ -7,14 +7,15 @@ import { SettingsCard } from "~/card-components/SettingsCard";
 import { FlagPreset } from "~/types/preset";
 
 type PresetsProps = {
-  presets: Record<string, FlagPreset>;
+  presetList: Record<string, FlagPreset>;
 };
 
-export const Settings = ({ presets: rawPresets }: PresetsProps) => {
+export const Settings = ({ presetList: rawPresets }: PresetsProps) => {
   const presets = useMemo(() => {
     const options = [];
+
     for (const rawPresetName in rawPresets) {
-      if(rawPresets[rawPresetName].official) {
+      if (rawPresets[rawPresetName].official) {
         options.push(rawPresets[rawPresetName]);
       }
     }
@@ -34,7 +35,7 @@ export const Settings = ({ presets: rawPresets }: PresetsProps) => {
 
   return (
     <PageContainer className={"flex flex-wrap"}>
-      <PresetsCard presets={presets ?? []} />
+      <PresetsCard presets={presets} />
       <SettingsCard />
     </PageContainer>
   );

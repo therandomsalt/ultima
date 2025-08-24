@@ -1,6 +1,6 @@
 import type { NextPage } from "next";
 import { useEffect, useState } from "react";
-import { FlagCreatePage } from "~/components/FlagCreatePage/FlagCreatePage";
+import { FlagCreatePage } from "~/components/FlagCreatePage/FlagCreatePageNew";
 import { setRawFlags } from "~/state/flagSlice";
 import { setObjectiveMetadata } from "~/state/objectiveSlice";
 import { RawFlagMetadata, setSchema } from "~/state/schemaSlice";
@@ -15,54 +15,59 @@ export type PageProps = {
 };
 
 const Create = () => {
-
-  const [objectives, setObjectives] = useState(null)
-  const [presets, setPresets] = useState(null)
-  const [schema, setSchemaLocal] = useState(null)
-  const [version, setVersion] = useState(null)
-  
+  const [objectives, setObjectives] = useState(null);
+  const [presets, setPresets] = useState(null);
+  const [schema, setSchemaLocal] = useState(null);
+  const [version, setVersion] = useState(null);
 
   useEffect(() => {
-    const store = makeStore()
+    const store = makeStore();
 
     // fetch presets
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/presets`)
       .then((res) => res.json())
       .then((data) => {
-        setPresets(data)
+        setPresets(data);
         // TODO: figure out why this isn't having the desired effect -- it's defaulting to the startingFlags in flagSlice.ts -- a race condition?
         const preset = data["ultros league"];
         if (preset) {
           store.dispatch(setRawFlags(preset.flags));
         }
-      })
-    
+      });
+
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/metadata/flag`)
       .then((res) => res.json())
       .then((data) => {
-        setSchemaLocal(data)
-        store.dispatch(setSchema(data))
-      })
+        setSchemaLocal(data);
+        store.dispatch(setSchema(data));
+      });
 
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/metadata/objective`)
       .then((res) => res.json())
       .then((data) => {
-        setObjectives(data)
-        store.dispatch(setObjectiveMetadata(data))
-      })
+        setObjectives(data);
+        store.dispatch(setObjectiveMetadata(data));
+      });
 
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/wc`)
       .then((res) => res.json())
       .then((data) => {
-        const fetchedVersion = data["version"]
-        setVersion(fetchedVersion)
-      })
-  }, [])
+        const fetchedVersion = data["version"];
+        setVersion(fetchedVersion);
+      });
+  }, []);
 
-  if(objectives && presets && schema && version) {
-    return(<FlagCreatePage objectives={objectives} presets={presets} schema={schema} version={version}/>)
+  if (objectives && presets && schema && version) {
+    return (
+      <FlagCreatePage
+        objectives={objectives}
+        presets={presets}
+        schema={schema}
+        version={version}
+      />
+    );
   } else {
-    return(<p>Loading...</p>)
+    return <p>Loading...</p>;
   }
 };
 
