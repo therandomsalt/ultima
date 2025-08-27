@@ -150,26 +150,26 @@ export function SeedSettings() {
           id: "misc",
           content: <Gameplay />,
         },
-        {
-          label: (
-            <TabContainer>
-              <TabIcon Icon={GiPaintBrush} />
-              <span>Graphics</span>
-            </TabContainer>
-          ),
-          id: "Graphics",
-          content: <Graphics />,
-        },
-        {
-          label: (
-            <TabContainer>
-              <TabIcon Icon={GiMagnifyingGlass} />
-              <span className="whitespace-nowrap">Accessibility</span>
-            </TabContainer>
-          ),
-          id: "accessibility",
-          content: <Accessibility />,
-        },
+        // {
+        //   label: (
+        //     <TabContainer>
+        //       <TabIcon Icon={GiPaintBrush} />
+        //       <span>Graphics</span>
+        //     </TabContainer>
+        //   ),
+        //   id: "Graphics",
+        //   content: <Graphics />,
+        // },
+        // {
+        //   label: (
+        //     <TabContainer>
+        //       <TabIcon Icon={GiMagnifyingGlass} />
+        //       <span className="whitespace-nowrap">Accessibility</span>
+        //     </TabContainer>
+        //   ),
+        //   id: "accessibility",
+        //   content: <Accessibility />,
+        // },
         {
           label: (
             <TabContainer>

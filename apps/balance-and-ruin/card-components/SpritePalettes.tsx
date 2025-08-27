@@ -1,6 +1,6 @@
 import { Button, Card } from "@ff6wc/ui";
 import orderBy from "lodash/orderBy";
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
 import { FlagLabel } from "~/components/FlagLabel/FlagLabel";
@@ -101,9 +101,6 @@ export const SpritePalettes = ({
   return (
     <Card title={"Sprite Palettes"}>
       <CardColumn>
-        <span className="inline-flex gap-2 flex-wrap">
-          <SettingSwitch flag="-randp" label="Use randomized palettes" />
-        </span>
         {paletteIter.map((_val, idx) => {
           const paletteColors = palettesById[paletteValues[idx]]?.color ?? [];
           return (
