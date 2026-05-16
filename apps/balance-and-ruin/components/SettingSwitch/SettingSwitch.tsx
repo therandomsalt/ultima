@@ -5,7 +5,7 @@ export type SettingSwitchProps = {
   helperText?: React.ReactNode;
   label: string;
   isChecked: boolean;
-  onClick: () => void;
+  onClick: void;
 };
 
 export const SettingSwitch = ({
@@ -15,10 +15,10 @@ export const SettingSwitch = ({
   onClick,
 }: SettingSwitchProps) => {
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-col gap-1 p-1">
       <div
         className={"flex items-center gap-4 flex-shrink cursor-pointer w-fit"}
-        onClick={onClick}
+        onClick={() => onClick}
       >
         <Switch checked={isChecked} />
 

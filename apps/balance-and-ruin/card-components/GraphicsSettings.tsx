@@ -1,17 +1,17 @@
 import { Card } from "@ff6wc/ui";
 import React, { useState } from "react";
 import { CardColumn } from "~/components/CardColumn/CardColumn";
+import { PageColumn } from "~/components/PageColumn/PageColumn";
 import { SettingSwitch } from "~/components/SettingSwitch/SettingSwitch";
-import { readSetting, writeSetting } from "~/utils/localStorageUtils";
+import { useBooleanState } from "~/utils/settingsSetup";
 
 export type GraphicsSettingsProps = {
   graphicsSettingsData: Array<GraphicsSettingData>;
 };
 
 export type GraphicsSettingData = {
-  isSettingEnabled: boolean;
-  settingOnClick: () => {};
   settingLabel: string;
+  settingFlag: string;
 };
 
 export const GraphicsSettings = ({
@@ -19,19 +19,42 @@ export const GraphicsSettings = ({
 }: GraphicsSettingsProps) => {
   const settingSwitches: React.ReactNode[] = [];
 
-  graphicsSettingsData.map((data) =>
+  graphicsSettingsData.map((item) =>
     settingSwitches.push(
-      <SettingSwitch
-        isChecked={data.isSettingEnabled}
-        onClick={() => data.settingOnClick}
-        label={data.settingLabel}
-      />
-    )
+      <SettingSwitches
+        key={item.settingFlag}
+        label={item.settingLabel}
+        flagName={item.settingFlag}
+      />,
+    ),
   );
 
   return (
     <Card title={"Graphics settings"}>
-      <span className="inline-flex gap-2 flex-wrap">{settingSwitches}</span>
+      <span className="inline-flex gap-2 flex-wrap">
+        <PageColumn>{settingSwitches}</PageColumn>
+      </span>
     </Card>
   );
 };
+
+function SettingSwitches({
+  label,
+  flagName,
+}: {
+  label: string;
+  flagName: string;
+}) {
+  // const [isEnabled, setIsEnabled] = useBooleanState(flagName, false);
+
+  // return (
+  //   <SettingSwitch
+  //     isChecked={isEnabled}
+  //     onClick={setIsEnabled(!isEnabled)}
+  //     label={label}
+  //   />
+  // );
+  return (
+    <SettingSwitch isChecked={true} onClick={console.log()} label={label} />
+  );
+}
